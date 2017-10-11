@@ -50,7 +50,7 @@ function telephoneCheck(str) {
 
 
 // Setup - All part of the validateRecords function below:
-var collection = {
+let collection = {
     "2548": {
       "album": "Slippery When Wet",
       "artist": "Bon Jovi",
@@ -76,40 +76,48 @@ var collection = {
     }
 };
 // Keep a copy of the collection for tests
-var collectionCopy = JSON.parse(JSON.stringify(collection));
+const collectionCopy = JSON.parse(JSON.stringify(collection));
 
 // Only change code below this line
 function updateRecords(id, prop, value) {
  
-  //collection = collectionCopy;
-  
-  //if there is no property create the property and update the value:
-    if(collection[id][prop] === undefined && prop != "tracks") {
-        console.log("prop undefined");
-        collection[id][prop] = value;
-        
-    }
-    else if (prop == "tracks") {
-        if(collection[id][prop] === undefined) {
+  //Update the tracks property if it exists.
+   if (prop == "tracks") {
+        //If the value field is empty delete the tracks property:
+        if (value === "") {
+            console.log('empty val: deleting property');
+            delete collection[id][prop];
+        }
+        //If the tracks property doesn't exist in the collection create it:
+        else if(collection[id][prop] === undefined) {
+            console.log("track:prop undefined")
+            //Create an empty array to hold the tracks:
             collection[id][prop] = [];
+            //Push the track value into the end of the array:
             collection[id][prop].push(value);
         }
         else 
+        //Add the tracks to the end:
         {
+            console.log("updating track value")
             collection[id][prop].push(value);
         }
-        
     }
+    //If the property isn't a track but still has an empty value:
+    else if (value === ""){
+        //Delete the property:
+        console.log("deleting prop because empty val");
+        delete collection[id][prop];
+    }
+    //Else update the collection with the new property and value:
     else {
     //update the value:
     collection[id][prop] = value;
     }
-
-
     console.log(collection);
     console.log(collectionCopy);
     return collection;
-}
 
-// Alter values below to test your code
-updateRecords(5439, "artist", "Yo Mamma");
+}
+//Example Call
+//updateRecords(1245, "tracks", "Love Me Baby");
