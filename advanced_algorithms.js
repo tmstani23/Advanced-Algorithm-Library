@@ -123,152 +123,44 @@ function updateRecords(id, prop, value) {
 //updateRecords(1245, "tracks", "Love Me Baby");
 
 function symmetricDiff(args) {
-    //Note: must turn into a sub function
-    let arrLength = 0;
-    let newArr = [];
-    let finalArr = [];
-    let workingArr = [];
-    let recursionI = 0;
-        for(i=0;i<arguments.length; i++) {
+    //Create a working array for processing:
+    var workingArr = [];
+    //loop through the arguments:
+    for (var i = 0; i < arguments.length; i++) {
+        //push each argument element into the working array:
         workingArr.push(arguments[i]);
-   }
-    const iterateLength = 0;
-   //console.log(workingArr);
-   let flattened = function(a, b) {
-        
-        if(a.length > b.length) {
-            arrLength = a.length;
-        }
-        else {
-            arrLength = b.length;
-        }
-        console.log(a)
-        console.log(b)
-        //check if a contains elements of b
-        for (i = 0; i < arrLength; i++) {
-            //check arr2 to verify if it doesn't contain current index element of arr1:
-            var checkArgA = a.indexOf(b[i]) === -1;
-            //console.log(checkArgA)
-            //check arr2 to verify if it doesn't contain current index element of arr1:
-            var checkArgB = b.indexOf(a[i]) === -1;
-            //if the element isnt in arr0:
-            if(checkArgA && b[i] !== undefined){
-                if(newArr.indexOf(b[i]) === - 1) {
-                    //push the element to the new array
-                    console.log("pushed number" + b[i])
-                    newArr.push(b[i]);
-                }
-                // else {
-                //     
-                // }
-                
-            }
-            if(checkArgB && a[i] !== undefined){
-                if(newArr.indexOf(a[i]) === - 1) {
-                    //push the element to the new array
-                    console.log("pushed number" + a[i])
-                    newArr.push(a[i]);
-                }
-                
-                else {
-                    newArr.splice(a[i], 1);
-                }
-            }
-        }
-        recursionI++;
-        if(recursionI < workingArr.length -1) {
-            console.log("iterating")
-            flattened(newArr, workingArr[recursionI+1]);
-        } else {
-            return newArr;
-        }
-            
     }
-    if(iterateLength === 0) {
-        flattened(arguments[0], arguments[1]);
+    //Create function that calculates the symmetric difference between two arrays:
+    function symDiff(arrayOne, arrayTwo) {
+        var result = [];
+        console.log(`array one: ` + arrayOne);
+        console.log(`array two: ` + arrayTwo);
+        //run for each function on array one that checks each element in the array:
+        arrayOne.forEach((item) => {
+            //if arrayTwo does not contain the arrayOne element and the result array does not either:
+            if (arrayTwo.indexOf(item) < 0 && result.indexOf(item) < 0) {
+                //push the arrayOne element to the result array:
+                console.log(`adding from arrayOne ` + item);
+                result.push(item);
+            }
+        });
+        //run for each function on array two that checks each element in the array:
+        arrayTwo.forEach((item) => {
+            //if arrayOne does not contain the arrayTwo element and the result array does not either:
+            if (arrayOne.indexOf(item) < 0 && result.indexOf(item) < 0) {
+                //push the arrayTwo element to the result array:
+                console.log(`adding from arrTwo ` + item);
+                result.push(item);
+            }
+        });
+        //return the result array
+        return result;
     }
-   
-   
-   console.log(newArr)
-
-
-    // let arg0 = arguments[0];
-    // let arg1 = arguments[1];
-    // let arg2 = arguments[2];
+  // Apply reduce method to working array, using the symDiff function
+  //This will reduce the workingArray elements down to only those which fulfill the symDiff function:
+  console.log(workingArr.reduce(symDiff))  
+  return workingArr.reduce(symDiff);
     
-    // let newArr = [];
-    // let finalArr = [];
-    // let arrLength;
-
-    // //set the arrLength variable to the largest of the input arguments
-    // if (arg0.length > arg1.length) {
-    // arrLength = arg0.length;
-    // }
-    // if (arg2 != undefined && arg2.length > arg1.length) {
-    // arrLength = arg2.length;
-    // }
-    // else {
-    // arrLength = arg1.length;
-    // }
-    // //loop i times based on the longest array:
-    // for (i = 0; i < arrLength; i++) {
-    // //check arr2 to verify if it doesn't contain current index element of arr1:
-    // var checkArg1 = arg1.indexOf(arg0[i]) === -1;
-    // //check arr2 to verify if it doesn't contain current index element of arr1:
-    // var checkArg0 = arg0.indexOf(arg1[i]) === -1;
-    // //if the element isnt in arr0:
-    //     if(checkArg1 && arg0[i] !== undefined){
-    //         if(newArr.indexOf(arg0[i]) === - 1) {
-    //             //push the element to the new array
-    //             newArr.push(arg0[i]);
-    //         }
-           
-    //     }
-    //     //if the element isnt in arr1:
-    //     if(checkArg0 && arg1[i] !== undefined){
-    //         if(newArr.indexOf(arg1[i]) === - 1) {
-    //             //push the element to the new array
-    //             newArr.push(arg1[i]);
-    //         }
-    //     }
-    // }
-    // console.log(newArr);
-    // //If a third array was passed into the function check it:
-    // if(arg2 != undefined) {
-    //     //loop i times based on the longest array:
-    //     for (i = 0; i < arrLength; i++) {
-    //     //check newArr to verify that it doesn't contain current index element of arg2:
-    //     var checkNewArr = newArr.indexOf(arg2[i]) === -1;
-    //     //check arg2 to verify that it doesn't contain current index element of newArr:
-    //     var checkArg2 = arg2.indexOf(newArr[i]) === -1;
-    //     //if the element isnt in arr0:
-    //         if(checkNewArr && arg2[i] !== undefined){
-    //             //if the final array doesn't already contain the element:
-    //             if(finalArr.indexOf(arg2[i]) === - 1) {
-    //                 //push the element to the new array
-    //                 finalArr.push(arg2[i]);
-    //             }
-                
-    //         }
-    //         //if the element isnt in arr1:
-    //         if(checkArg2 && newArr[i] !== undefined){
-    //             //if the final array doesn't already contain the element:
-    //             if(finalArr.indexOf(newArr[i]) === - 1) {
-    //             //push the element to the new array
-    //             finalArr.push(newArr[i]);
-    //             }
-    //         }
-    //     }
-    // }   
-    // //If there are only two input arrays return newArr:
-    // else {
-    //     return newArr;
-    // }
-    // console.log(finalArr);
-    // //console.log(newArr);
-    // return finalArr;
-    
-  
-  }
-  
-  symmetricDiff([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]);
+}
+//Example Call:  
+//symmetricDiff([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]);
