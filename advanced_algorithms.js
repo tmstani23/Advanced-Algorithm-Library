@@ -164,3 +164,79 @@ function symmetricDiff(args) {
 }
 //Example Call:  
 //symmetricDiff([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]);
+
+
+function checkCashRegister(price, cash, cid) {
+    // Function that accepts purchase price as the first argument (price), 
+    // payment as the second argument (cash), 
+    // and cash-in-drawer (cid) as the third argument.
+    
+    // cid is a 2D array listing available currency.
+    
+    // Return the string "Insufficient Funds" if cash-in-drawer is less than the change due. 
+    // Return the string "Closed" if cash-in-drawer is equal to the change due.
+    // Otherwise, return change in coin and bills, sorted in highest to lowest order.
+    
+    let change;
+    let totalCid = 0;
+    const changeArr = [];
+    //Calculate Change:
+    change = cash - price;
+
+    //Add all CiD:
+    for (let i = cid.length - 1; i >= 0; i--) {
+        //console.log(cid[i]);
+        cid[i].forEach(function(item) {
+            console.log(item);
+            console.log(change);
+            if (typeof item != "number") {   
+                return null;
+            }
+            if (!item <= change ) {
+                return null;
+                
+            }
+            else if (item = change) {
+                return "Closed";
+            }
+            else if (item < change) {
+                //compare item decimal place with change:
+                //if change/decimal divides evenly modulo:
+                    //set current object key value to change:
+                    //copy object to final array(cid[i])
+                console.log(`pushing: ` + cid[i]);
+                changeArr.push(cid[i]);
+                //subtract item from change
+                change = change - item;
+                //add item to total cid
+                totalCid += item;
+            }
+        }); 
+    }
+    // if (totalCid - change < 0) {
+    //     console.log("Insufficient Funds");
+    //     return "Insufficient Funds";
+    // }
+    if (changeArr.length > 0){
+        console.log(changeArr);
+        return changeArr;
+    }
+    console.log(totalCid);
+    console.log(change);
+    //return change;
+  }
+  
+  // Example cash-in-drawer array:
+  // [["PENNY", 1.01],
+  // ["NICKEL", 2.05],
+  // ["DIME", 3.10],
+  // ["QUARTER", 4.25],
+  // ["ONE", 90.00],
+  // ["FIVE", 55.00],
+  // ["TEN", 20.00],
+  // ["TWENTY", 60.00],
+  // ["ONE HUNDRED", 100.00]]
+  
+//checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
+//checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) 
