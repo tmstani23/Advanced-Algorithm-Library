@@ -178,53 +178,70 @@ function checkCashRegister(price, cash, cid) {
     // Otherwise, return change in coin and bills, sorted in highest to lowest order.
     
     let change;
+    let divRemain;
+    let keyValue;
+    let drawerChange;
     let totalCid = 0;
-    const changeArr = [];
+    
+    const cashDenom = [100, 20, 10, 5, 1, 0.25, 0.10, 0.5, 0.1];
+    let finalArr = [];
     //Calculate Change:
     change = cash - price;
-
+    let remainingChange = change;
     //Add all CiD:
-    for (let i = cid.length - 1; i >= 0; i--) {
+    //determine total cash in drawer
+    
+    for (let i = cid.length - 1; i >= 0;  i--) {
         //console.log(cid[i]);
         cid[i].forEach(function(item) {
-            console.log(item);
-            console.log(change);
-            if (typeof item != "number") {   
+            //console.log(item);
+            //console.log(change);
+            if (typeof item != "number") {
                 return null;
             }
-            if (!item <= change ) {
-                return null;
-                
-            }
-            else if (item = change) {
-                return "Closed";
-            }
-            else if (item < change) {
-                //compare item decimal place with change:
-                //if change/decimal divides evenly modulo:
-                    //set current object key value to change:
-                    //copy object to final array(cid[i])
-                console.log(`pushing: ` + cid[i]);
-                changeArr.push(cid[i]);
-                //subtract item from change
-                change = change - item;
-                //add item to total cid
+            else {
                 totalCid += item;
+                drawerChange = item;
+                
+                //console.log(`totalCid: ` + totalCid);
+                //console.log(`drawer change: ` + drawerChange);
+                while (remainingChange > 0) {
+                    cashDenom.forEach(function (denom) {
+                        divRemain = remainingChange % denom;
+                        if(remainingChange/denom >= 1) {
+                            console.log(`denom: ` + denom)
+                            keyValue = remainingChange - divRemain;
+                            //change object value to keyvalue
+                            //push new object to finalArr
+                            remainingChange = divRemain;
+                            console.log(`keyval: ` + keyValue) 
+                            console.log(`change: ` + remainingChange);
+                            return remainingChange;
+                        }
+                    });
+                }
+                //console.log(`keyval: ` + keyValue) 
+                //console.log(`change: ` + remainingChange);
+                return remainingChange;    
+                
+                
             }
         }); 
     }
-    // if (totalCid - change < 0) {
-    //     console.log("Insufficient Funds");
-    //     return "Insufficient Funds";
-    // }
-    if (changeArr.length > 0){
-        console.log(changeArr);
-        return changeArr;
+    if (totalCid - change < 0) {
+        console.log("Insufficient Funds");
+        return "Insufficient Funds";
     }
-    console.log(totalCid);
-    console.log(change);
+    if (totalCid == change){
+        console.log("Closed");
+        return "Closed";
+    }
+    // console.log(totalCid);
+    // console.log(change);
     //return change;
-  }
+ 
+
+}
   
   // Example cash-in-drawer array:
   // [["PENNY", 1.01],
@@ -240,3 +257,4 @@ function checkCashRegister(price, cash, cid) {
 //checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
 //checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
 checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) 
+//checkCashRegister(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0.0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
