@@ -179,55 +179,76 @@ function checkCashRegister(price, cash, cid) {
     
     let change;
     let divRemain;
-    let keyValue;
+    let cidValue;
+    let cidKey;
     let drawerChange;
     let totalCid = 0;
+    let denomPos;
     
-    const cashDenom = [100, 20, 10, 5, 1, 0.25, 0.10, 0.5, 0.1];
+    const cashDenom = [100, 20, 10, 5, 1, 0.25, 0.10, 0.05, 0.01].reverse();
     let finalArr = [];
     //Calculate Change:
     change = cash - price;
     let remainingChange = change;
-    //Add all CiD:
-    //determine total cash in drawer
     
+    //Loop through all Cid Objects:
     for (let i = cid.length - 1; i >= 0;  i--) {
-        //console.log(cid[i]);
+        //Loop through each key and value (item) in the object:
         cid[i].forEach(function(item) {
-            //console.log(item);
-            //console.log(change);
+            //If the item is not a number:
             if (typeof item != "number") {
+                //cidKey = item;
                 return null;
             }
             else {
-                totalCid += item;
-                drawerChange = item;
-                
+                //totalCid += item;
                 //console.log(`totalCid: ` + totalCid);
-                //console.log(`drawer change: ` + drawerChange);
-                while (remainingChange > 0) {
-                    cashDenom.forEach(function (denom) {
-                        divRemain = remainingChange % denom;
-                        if(remainingChange/denom >= 1) {
-                            console.log(`denom: ` + denom)
-                            keyValue = remainingChange - divRemain;
-                            //change object value to keyvalue
-                            //push new object to finalArr
-                            remainingChange = divRemain;
-                            console.log(`keyval: ` + keyValue) 
-                            console.log(`change: ` + remainingChange);
-                            return remainingChange;
-                        }
-                    });
-                }
-                //console.log(`keyval: ` + keyValue) 
-                //console.log(`change: ` + remainingChange);
-                return remainingChange;    
-                
-                
+                //cidValue = item;
             }
-        }); 
+        });
+        //console.log(cid[i]); 
+        //Loop through denom array and get denom position
+        if (remainingChange / cashDenom[i] >= 1) {
+            //console.log(cid[i])
+            denomPos = cid[i];
+            cidKey = denomPos[0];
+            cidValue = denomPos[1];
+            totalCid += cidValue;
+            
+            //run delinCod function if remainingChange > 0
+            if (remainingChange > 0){
+                delinCid(denomPos, cidValue, cidKey);
+            }
+        }
     }
+    function delinCid(denomPos, cidValue, cidKey) {
+
+    
+        //Check if more cash available than req. change:
+        if (cidValue - remainingChange > 0) {
+            //console.log("true" + cid[denomPos]);
+            //console.log("cidval" + cidValue);
+           // console.log("cidkey" + cidKey);
+           
+            let toPush = [cidKey, remainingChange];
+            finalArr.push(toPush);
+            remainingChange = 0;
+
+            //console.log(toPush);
+
+        }
+        else {
+            //console.log(`more change needed than: ` + cidValue);
+            //console.log(cidValue)
+            let toPush = [cidKey, cidValue];
+            finalArr.push(toPush);
+            remainingChange = remainingChange - cidValue;
+
+        }
+      
+    }   
+    console.log(totalCid);
+    console.log(change);
     if (totalCid - change < 0) {
         console.log("Insufficient Funds");
         return "Insufficient Funds";
@@ -238,8 +259,9 @@ function checkCashRegister(price, cash, cid) {
     }
     // console.log(totalCid);
     // console.log(change);
-    //return change;
- 
+    
+    console.log(finalArr);
+    return finalArr;
 
 }
   
@@ -256,5 +278,7 @@ function checkCashRegister(price, cash, cid) {
   
 //checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
 //checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
-checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) 
+//checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 0.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) 
 //checkCashRegister(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0.0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+//checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]) 
+checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) 
