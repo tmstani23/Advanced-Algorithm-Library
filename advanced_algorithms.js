@@ -181,88 +181,103 @@ function checkCashRegister(price, cash, cid) {
     let divRemain;
     let cidValue;
     let cidKey;
-    let drawerChange;
     let totalCid = 0;
     let denomPos;
+    let denomAmount;
     
-    const cashDenom = [100, 20, 10, 5, 1, 0.25, 0.10, 0.05, 0.01].reverse();
+    const cashDenom = [100.00, 20.00, 10.00, 5.00, 1.00, 0.25, 0.10, 0.05, 0.01].reverse();
     let finalArr = [];
     //Calculate Change:
     change = cash - price;
     let remainingChange = change;
     
-    //Loop through all Cid Objects:
+    //Loop through all Cid Objects (highest to lowest):
     for (let i = cid.length - 1; i >= 0;  i--) {
-        //Loop through each key and value (item) in the object:
-        cid[i].forEach(function(item) {
-            //If the item is not a number:
-            if (typeof item != "number") {
-                //cidKey = item;
-                return null;
-            }
-            else {
-                //totalCid += item;
-                //console.log(`totalCid: ` + totalCid);
-                //cidValue = item;
-            }
-        });
-        //console.log(cid[i]); 
-        //Loop through denom array and get denom position
+        
+        //Check there is more remaining change than the current cash denomination amount
+        //Ex: rem change: 54.00 / cashDenom: 20.00 = 2.7 - >= 1
         if (remainingChange / cashDenom[i] >= 1) {
-            //console.log(cid[i])
+            
+            //set denomPos to current cash in draw element:
             denomPos = cid[i];
+            //set cidKey and value to current cash in draw object key/value:
             cidKey = denomPos[0];
             cidValue = denomPos[1];
+            //set totalCid to add cidValue to its current value in a running tally:
             totalCid += cidValue;
-            
-            //run delinCod function if remainingChange > 0
-            if (remainingChange > 0){
-                delinCid(denomPos, cidValue, cidKey);
-            }
+            //set denomAmount to current element from the cashDenom array:
+            denomAmount = cashDenom[i];
+            //Call function to deliniate from the cash in drawer:
+            delinCid(denomPos, denomAmount);
+            //Call function to round remaining change:
+            moneyRound(remainingChange);
+           
         }
     }
-    function delinCid(denomPos, cidValue, cidKey) {
-
     
-        //Check if more cash available than req. change:
+    //Round remaining change to nearest penny:
+    function moneyRound(num) {
+        return remainingChange = (Math.ceil(num * 1000) / 1000);
+    }
+
+    //Function that delineates cash in drawer in the proper amounts:
+    function delinCid(denomPos, denomAmount) {
+        let pushAmount;
+        let modRemain;
+        let toPush = [];
+        
+        //Check if more cash in drawer available than remaining change needed:
         if (cidValue - remainingChange > 0) {
-            //console.log("true" + cid[denomPos]);
-            //console.log("cidval" + cidValue);
-           // console.log("cidkey" + cidKey);
-           
-            let toPush = [cidKey, remainingChange];
+            //set modRemain to equal the result after division of remainingChange and denomAmount
+            let modRemain = remainingChange % denomAmount;
+            //If there is no remainder:
+            if(modRemain == 0) {
+                //set push amount to equal current remaining change;
+                pushAmount = remainingChange;
+            }
+            //If some remains after division:
+            else {
+                //set push amount to equal diff / denom amount:
+                //ex: (5.74 - 0.74) / 5 = 1
+                pushAmount = (remainingChange - modRemain) / denomAmount;
+                //set final push amount to answer above * denom amount:
+                //ex: 1 * 5 = 5;
+                pushAmount = pushAmount * denomAmount;
+            }
+            
+            //save key tag and push amount into an array:
+            toPush = [cidKey, pushAmount];
+            //Add the toPush array to final array:
             finalArr.push(toPush);
-            remainingChange = 0;
-
-            //console.log(toPush);
-
+            //set remaining change to be the amount remaining after division:
+            //ex: 5.74 = 0.74
+            remainingChange = modRemain;
         }
+        
+        //else if some other amount, less or equal, in drawer cash: 
         else {
-            //console.log(`more change needed than: ` + cidValue);
-            //console.log(cidValue)
+            //Create new array that holds cidKey and current cidValue;
             let toPush = [cidKey, cidValue];
+            //Push new array to final:
             finalArr.push(toPush);
+            //Subtract cidValue from remaining change:
             remainingChange = remainingChange - cidValue;
-
         }
-      
     }   
-    console.log(totalCid);
-    console.log(change);
+    //if there is less total cash in drawer than change needed:
     if (totalCid - change < 0) {
         console.log("Insufficient Funds");
         return "Insufficient Funds";
     }
+    //If the total cash in drawer is equal to change needed:
     if (totalCid == change){
         console.log("Closed");
         return "Closed";
     }
-    // console.log(totalCid);
-    // console.log(change);
     
+    //return final array:
     console.log(finalArr);
     return finalArr;
-
 }
   
   // Example cash-in-drawer array:
@@ -276,9 +291,5 @@ function checkCashRegister(price, cash, cid) {
   // ["TWENTY", 60.00],
   // ["ONE HUNDRED", 100.00]]
   
-//checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
-//checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
-//checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 0.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) 
-//checkCashRegister(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0.0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
-//checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]) 
+//Example Call:
 checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) 
