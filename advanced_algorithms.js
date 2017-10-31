@@ -292,4 +292,53 @@ function checkCashRegister(price, cash, cid) {
   // ["ONE HUNDRED", 100.00]]
   
 //Example Call:
-checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) 
+//checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) 
+
+
+function updateInventory(arr1, arr2) {
+    // Compare and update the inventory stored in a 2D array against a second 2D array. 
+    // Update the current existing inventory item quantities (in arr1). 
+    // If an item cannot be found, add the new item and quantity into the inventory array. 
+    // The returned inventory array should be in alphabetical order by item.
+    
+    //Loop through each element of arr 1 and arr 2:
+
+        //Check to see this element includes each B key
+
+        //If the B key is included in the A element:
+
+            //Update A element value with sum of A element and returned B element:
+                //ex: A[0] = A[0] + B[0];
+            
+            //Splice the B element array out of the main B array:
+    
+    //Push/Map remaining B element arrays to main Array:
+
+    //Sort A elements alphabetically by Key:
+
+    //function for sorting the array alphabetically by key:
+    console.log(newInv.sort(function(a, b){
+        if(a[1] < b[1]) return -1;
+        if(a[1] > b[1]) return 1;
+        return 0;
+    }))
+   
+    return arr1;
+}
+
+// Example inventory lists
+var curInv = [
+    [21, "Bowling Ball"],
+    [2, "Dirty Sock"],
+    [1, "Hair Pin"],
+    [5, "Microphone"]
+];
+
+var newInv = [
+    [2, "Hair Pin"],
+    [3, "Half-Eaten Apple"],
+    [67, "Bowling Ball"],
+    [7, "Toothpaste"]
+];
+
+updateInventory(curInv, newInv);
