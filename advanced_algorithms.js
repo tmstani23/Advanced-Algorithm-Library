@@ -300,29 +300,91 @@ function updateInventory(arr1, arr2) {
     // Update the current existing inventory item quantities (in arr1). 
     // If an item cannot be found, add the new item and quantity into the inventory array. 
     // The returned inventory array should be in alphabetical order by item.
+    let finalArr = [];
+
     
     //Loop through each element of arr 1 and arr 2:
+    for (i=0; i < arr1.length; i++) {
+        //console.log(arr1[i] + `arr1 element`)
+        let arr1Element = arr1[i];
+        let arr1Value = arr1[i];
+        arr1Value = arr1Value[0];
+        let arr1Key = arr1[i];
+        arr1Key = arr1Key[1]
+        
+        
+        //loop through each B element:
+        arr2.forEach((element) => {
+            //console.log(arr1Value + "before addition")
+            //console.log(arr1Element[0])
+            
+            let arr2Key = element;
+            arr2Key = arr2Key[1]
+            let arr2Value = element;
+            arr2Value = arr2Value[0];
+           
+            
+            //Check to see A element includes each B key
+            if(arr1[i].includes(arr2Key)) {
+                //console.log(arr1Key + " " + arr2Key);
+                //Update A element value with sum of A element and returned B element:
+                //ex: A[0] = A[0] + B[0];
+                //Maybe need to use map...
+                arr1Value = arr1Value + arr2Value;
+                arr1Element[0] = arr1Value;
+                finalArr.push(arr1[i]); 
+               
+                //Splice the B element array out of the main B array:
+                element.splice(0);
+            
 
-        //Check to see this element includes each B key
+                //return arr1Value
+            }
+            
+            
+        });
+        if(!finalArr.includes(arr1[i])) {
+            finalArr.push(arr1[i]);
+        }
+        
+           
+        //Push/Map remaining B element arrays to main Array:
+        //console.log(arr2[i].length);
+        
+        //checkArr2(arr1Key, arr1Value);
+        
+        //console.log(finalArr);
+        //console.log(arr1)
+        
+    }   
+    
+    function findElemIndex(element) {
+        return element;
+    }
+    arr2.forEach((element) => {
+        if(element.length != 0) {
+            finalArr.push(element);
+        } 
+    });  
+    
+    console.log(finalArr); 
+     
 
         //If the B key is included in the A element:
 
-            //Update A element value with sum of A element and returned B element:
-                //ex: A[0] = A[0] + B[0];
-            
-            //Splice the B element array out of the main B array:
+           
     
-    //Push/Map remaining B element arrays to main Array:
+    
 
     //Sort A elements alphabetically by Key:
 
     //function for sorting the array alphabetically by key:
-    console.log(newInv.sort(function(a, b){
-        if(a[1] < b[1]) return -1;
-        if(a[1] > b[1]) return 1;
-        return 0;
-    }))
-   
+    // console.log(newInv.sort(function(a, b){
+    //     if(a[1] < b[1]) return -1;
+    //     if(a[1] > b[1]) return 1;
+    //     return 0;
+    // }))
+    
     return arr1;
 }
 
