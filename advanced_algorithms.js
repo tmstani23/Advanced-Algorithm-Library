@@ -52,27 +52,27 @@ function telephoneCheck(str) {
 // Setup - All part of the validateRecords function below:
 let collection = {
     "2548": {
-      "album": "Slippery When Wet",
-      "artist": "Bon Jovi",
-      "tracks": [ 
+    "album": "Slippery When Wet",
+    "artist": "Bon Jovi",
+    "tracks": [ 
         "Let It Rock", 
         "You Give Love a Bad Name" 
-      ]
+    ]
     },
     "2468": {
-      "album": "1999",
-      "artist": "Prince",
-      "tracks": [ 
+    "album": "1999",
+    "artist": "Prince",
+    "tracks": [ 
         "1999", 
         "Little Red Corvette" 
-      ]
+    ]
     },
     "1245": {
-      "artist": "Robert Palmer",
-      "tracks": [ ]
+    "artist": "Robert Palmer",
+    "tracks": [ ]
     },
     "5439": {
-      "album": "ABBA Gold"
+    "album": "ABBA Gold"
     }
 };
 // Keep a copy of the collection for tests
@@ -347,7 +347,7 @@ function updateInventory(arr1, arr2) {
         }; 
     });  
     
-    //Sort A elements alphabetically by Key:
+    //Sort final array elements alphabetically by Key:
     finalArr.sort(function(a, b){
         if(a[1] < b[1]) return -1;
         if(a[1] > b[1]) return 1;
@@ -374,3 +374,87 @@ var newInv = [
 ];
 //Example Call:
 //updateInventory(curInv, newInv);
+
+
+function permAlone(str) {
+    // Return the number of total permutations of the provided string 
+    // that don't have repeated consecutive letters. 
+    // Assume that all characters in the provided string are each unique.
+    
+    // For example, aab should return 2
+    // because it has 6 total permutations (aab, aab, aba, aba, baa, baa), 
+    // but only 2 of them (aba and aba) don't have the same letter (in this case a) repeating.
+    
+    let resultArray = [];
+    let permCounter = 0;
+    let finalStr = str;
+    let possiblePerms = 6;
+    console.log(resultArray);
+    // resultArray.push(joinLett);
+    // console.log(resultArray);
+    
+    //finalStr = rotateLetters(str, 1);
+    //loop until possible perms are reached:
+    while (permCounter < possiblePerms) {
+        
+        rotateLetters(finalStr, 1);
+        rotateLetters(finalStr, 2);
+        
+        
+    }
+        //
+    //return length of result array
+
+    function splitReverse(string) {
+        let strLetters = string.split('');
+        //console.log(strLetters);
+        let reversedLetters = strLetters.reverse();
+        //console.log(reversedLetters);
+        let joinLett = reversedLetters.join("");
+        return joinLett;
+    }
+
+    function rotateLetters(string, position) {
+        //if position is 1:
+        if (position === 1) {
+            //save first two letters
+            let firstL = string.substring(0, 1);
+            let secL = string.substring(1, 2);
+            console.log(secL);
+            //reverse letters and join:
+            let tempStr = secL + firstL;
+            //save remaining letters:
+            let savedRem = string.substring(2);
+            //add the reversed letters to rest of original letters
+            finalStr = tempStr + savedRem;
+            
+            
+        }
+        //if position is 3:
+        if (position === 2) {
+            //split first and last letters into a substring:
+            let firstL = string.substring(0, 1);
+            let lastL = string.substring(string.length - 1);
+            //save remaining letters:
+            let savedRem = string.substring(1, string.length - 1)
+            //join saved letters:
+            finalStr = lastL + savedRem + firstL;
+            
+
+        };
+        //add 1 to perm counter:
+        permCounter += 1;
+        //save new string to result array if it doesnt have any repeats
+        // if (!resultArray.includes(finalStr)) {
+        //     resultArray.push(finalStr);
+        // }
+        resultArray.push(finalStr);
+        
+
+    }
+    console.log(resultArray);
+    return str;
+  }
+  
+  permAlone('aab');
+  
