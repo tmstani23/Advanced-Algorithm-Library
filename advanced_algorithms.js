@@ -388,22 +388,32 @@ function permAlone(str) {
     let resultArray = [];
     let permCounter = 0;
     let finalStr = str;
-    let possiblePerms = 6;
-    console.log(resultArray);
+    let possiblePerms = 0;
+    //console.log(resultArray);
     // resultArray.push(joinLett);
     // console.log(resultArray);
     
     //finalStr = rotateLetters(str, 1);
+    let sum = str.length;
+    let accumulator = str.length; 
+    //Determine possible permutations:
+    for (i = str.length; i > 0 + 1; i--) {
+        accumulator = accumulator - 1;
+        sum = sum * accumulator;
+    }
+    possiblePerms = sum;
+    //console.log(possiblePerms);
     //loop until possible perms are reached:
     while (permCounter < possiblePerms) {
         
         rotateLetters(finalStr, 1);
         rotateLetters(finalStr, 2);
-        
-        
     }
-        //
-    //return length of result array
+    
+    //return length of result array:
+    console.log(resultArray);
+    console.log(resultArray.length);
+    return resultArray.length;
 
     function splitReverse(string) {
         let strLetters = string.split('');
@@ -420,15 +430,13 @@ function permAlone(str) {
             //save first two letters
             let firstL = string.substring(0, 1);
             let secL = string.substring(1, 2);
-            console.log(secL);
+            //console.log(secL);
             //reverse letters and join:
             let tempStr = secL + firstL;
             //save remaining letters:
             let savedRem = string.substring(2);
             //add the reversed letters to rest of original letters
             finalStr = tempStr + savedRem;
-            
-            
         }
         //if position is 3:
         if (position === 2) {
@@ -439,22 +447,21 @@ function permAlone(str) {
             let savedRem = string.substring(1, string.length - 1)
             //join saved letters:
             finalStr = lastL + savedRem + firstL;
-            
-
         };
+        
         //add 1 to perm counter:
         permCounter += 1;
         //save new string to result array if it doesnt have any repeats
-        // if (!resultArray.includes(finalStr)) {
-        //     resultArray.push(finalStr);
-        // }
-        resultArray.push(finalStr);
+        let lettRepeats = /(\w)\1+/;
         
-
+        //console.log(lettRepeats.test(finalStr) + " " + finalStr);
+        if (!lettRepeats.test(finalStr)) {
+            resultArray.push(finalStr);
+        }
+        //resultArray.push(finalStr);
     }
-    console.log(resultArray);
-    return str;
+    
   }
   
-  permAlone('aab');
+  permAlone("aaabb");
   
