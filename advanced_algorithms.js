@@ -385,83 +385,64 @@ function permAlone(str) {
     // because it has 6 total permutations (aab, aab, aba, aba, baa, baa), 
     // but only 2 of them (aba and aba) don't have the same letter (in this case a) repeating.
     
-    let resultArray = [];
-    let permCounter = 0;
-    let finalStr = str;
-    let possiblePerms = 0;
-    //console.log(resultArray);
-    // resultArray.push(joinLett);
-    // console.log(resultArray);
-    
-    //finalStr = rotateLetters(str, 1);
-    let sum = str.length;
-    let accumulator = str.length; 
-    //Determine possible permutations:
-    for (i = str.length; i > 0 + 1; i--) {
-        accumulator = accumulator - 1;
-        sum = sum * accumulator;
-    }
-    possiblePerms = sum;
-    //console.log(possiblePerms);
-    //loop until possible perms are reached:
-    while (permCounter < possiblePerms) {
-        
-        rotateLetters(finalStr, 1);
-        rotateLetters(finalStr, 2);
-    }
-    
-    //return length of result array:
-    console.log(resultArray);
-    console.log(resultArray.length);
-    return resultArray.length;
-
-    function splitReverse(string) {
-        let strLetters = string.split('');
-        //console.log(strLetters);
-        let reversedLetters = strLetters.reverse();
-        //console.log(reversedLetters);
-        let joinLett = reversedLetters.join("");
-        return joinLett;
-    }
-
-    function rotateLetters(string, position) {
-        //if position is 1:
-        if (position === 1) {
-            //save first two letters
-            let firstL = string.substring(0, 1);
-            let secL = string.substring(1, 2);
-            //console.log(secL);
-            //reverse letters and join:
-            let tempStr = secL + firstL;
-            //save remaining letters:
-            let savedRem = string.substring(2);
-            //add the reversed letters to rest of original letters
-            finalStr = tempStr + savedRem;
-        }
-        //if position is 3:
-        if (position === 2) {
-            //split first and last letters into a substring:
-            let firstL = string.substring(0, 1);
-            let lastL = string.substring(string.length - 1);
-            //save remaining letters:
-            let savedRem = string.substring(1, string.length - 1)
-            //join saved letters:
-            finalStr = lastL + savedRem + firstL;
-        };
-        
-        //add 1 to perm counter:
-        permCounter += 1;
-        //save new string to result array if it doesnt have any repeats
-        let lettRepeats = /(\w)\1+/;
-        
-        //console.log(lettRepeats.test(finalStr) + " " + finalStr);
-        if (!lettRepeats.test(finalStr)) {
-            resultArray.push(finalStr);
-        }
-        //resultArray.push(finalStr);
-    }
-    
-  }
+  // Create a regex to match repeated consecutive characters.
+  var regex = /(.)\1+/g;
   
-  permAlone("aaabb");
+    // Split the string into an array of characters.
+    var arr = str.split('');
+    var permutations = [];
+    var tmp;
+  
+    // Return 0 if str contains same character.
+    if (str.match(regex) !== null && str.match(regex)[0] === str) return 0;
+  
+    // Function to swap characters.
+    function swap(index1, index2) {
+      //console.log(index1);
+      //Swap chars from the original string:
+      //swap position is first function argument with second 
+    
+        tmp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = tmp;
+    }
+  
+    // Generate arrays of permutations using the algorithm.
+    function generate(int) {
+        //int = str.length
+        if (int === 1) {
+        // Make sure to join the characters as we create  the permutation arrays
+        //console.log(arr + `int = 1`);
+        permutations.push(arr.join(''));
+        } else {
+            
+            //Loop as long as i doesn't equal int:
+            for (var i = 0; i != int; ++i) {
+            
+            //Run generate function:
+            generate(int - 1);
+            //if int is even arg1 = 0
+            //if int is odd arg1 = i
+            
+            //arg2 equals int - 1
+            //Run swap function with above arguments:
+            swap(int % 2 ? 0 : i, int - 1);
+            }
+        } 
+    }
+  
+    generate(arr.length);
+    console.log(permutations.length + ` total permutations`)
+    // Filter the array of repeated permutations.
+    var filtered = permutations.filter(function(string) {
+      return !string.match(regex);
+    });
+  
+    // Return how many have no repetitions.
+    console.log(filtered.length + 
+    ` non-repeating permutations`);
+    return filtered.length;
+  }
+  //Example Call:
+  permAlone("abcdefa");
   
