@@ -1,12 +1,12 @@
 
 
 function telephoneCheck(str) {
-    //Return true if the passed string is a valid US phone number.
+    //Return true if the passed string is a valid US phone int.
 
     //Create a dictionary to hold the correct match patterns:
     const valDict = {};
 
-    //Save regex patterns for each valid number to the dictionary:
+    //Save regex patterns for each valid int to the dictionary:
     valDict.validateOne = /^\d{10}$/;
     //console.log(valDict.validateOne.test('5555555555'));
     valDict.validateThree = /^\d{3}\s\d{3}\s\d{4}$/;
@@ -377,7 +377,7 @@ var newInv = [
 
 
 function permAlone(str) {
-    // Return the number of total permutations of the provided string 
+    // Return the int of total permutations of the provided string 
     // that don't have repeated consecutive letters. 
     // Assume that all characters in the provided string are each unique.
     
@@ -444,5 +444,24 @@ function permAlone(str) {
     return filtered.length;
   }
   //Example Call:
-  permAlone("abcdefa");
+  //permAlone("abcdefa");
+
+ //Make a person:
+function makePerson () { 
+    var Person = function(firstAndLast) {
+        // Complete the method below and implement the others similarly
+
+        this.getFullName = function() {
+            this.fullName = firstAndLast;
+            return this.fullName;
+        };
+        return firstAndLast;
+    };
+
+    var bob = new Person('Bob Ross');
+    console.log(bob.getFullName());
+    
+}
+makePerson();
+
   
