@@ -448,20 +448,60 @@ function permAlone(str) {
 
  //Make a person:
 function makePerson () { 
-    var Person = function(firstAndLast) {
-        // Complete the method below and implement the others similarly
-
+    //Create a class called Person:
+        //the function's string argument is the person's full name:
+    let Person = function(firstAndLast) {
+        //Split the full name string into an array of words:
+        let fullName = firstAndLast.split(" ");
+        //Create method that returns the full name:
         this.getFullName = function() {
-            this.fullName = firstAndLast;
-            return this.fullName;
+            //Join the full name array back into a string:
+            fullN = fullName.join(" ");
+            return fullN;
         };
-        return firstAndLast;
+        //Create method that returns first name:
+        this.getFirstName = function() {
+            //returns first word in fullName array:
+            return fullName[0];
+        };
+        //Create method that returns last name:
+        this.getLastName = function() {
+            //returns last word in fullname array:
+            return fullName[1];
+        };
+        //Create method that sets first name:
+        this.setFirstName = function(name) {
+            //Change first element in fullname array
+                //set to function's name argument and return:
+            return fullName[0] = name;
+        };
+        //Create method that sets last name:
+        this.setLastName = function(name) {
+            //Change second element in fullname array
+                //set to function's name argument and return:
+            return fullName[1] = name;
+        };
+        //Create method that sets last name:
+        this.setFullName = function(name) {
+            //set firstAndLast variable to = function's name arg:
+            firstAndLast = name;
+            //set fullName to equal a new array of words
+                //the result of splitting the new name string:
+            fullName = firstAndLast.split(" ");
+            return fullName;
+        };
     };
-
+    //create class object bob and assign it the name Bob Ross:
     var bob = new Person('Bob Ross');
+    //Example method calls:
+    console.log(bob.setFirstName("Tim"));
+    //console.log(bob.setLastName("Stanislav"));
+    //console.log(bob.setFullName("Curry Haskell"));
     console.log(bob.getFullName());
-    
-}
-makePerson();
+    //console.log(bob.getFirstName());
+    //console.log(bob.getLastName());
+};
+//Example call:
+//makePerson();
 
   
