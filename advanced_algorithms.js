@@ -481,7 +481,7 @@ function makePerson () {
                 //set to function's name argument and return:
             return fullName[1] = name;
         };
-        //Create method that sets last name:
+        //Create method that sets full name:
         this.setFullName = function(name) {
             //set firstAndLast variable to = function's name arg:
             firstAndLast = name;
@@ -503,5 +503,41 @@ function makePerson () {
 };
 //Example call:
 //makePerson();
+
+//Return a new array that transforms the element's 
+//average altitude into their orbital periods.
+function orbitalPeriod(arr) {
+    const finalArray = [];
+    const inputObj = arr[0];
+    const finalObj = {
+        name : "",
+        orbitalPeriod : ""
+    };
+    let GM = 398600.4418;
+    let earthRadius = 6367.4447;
+    let avgAlt = inputObj.avgAlt;
+    
+    let a = Math.pow(earthRadius + avgAlt, 3);
+    let divideSeg = a / GM;
+    let squareSeg = Math.sqrt(divideSeg);
+    let time = Math.round(2 * Math.PI * (squareSeg));
+
+
+    finalObj.name = inputObj.name;
+    finalObj.orbitalPeriod = time;
+
+    finalArray.push(finalObj);
+
+    console.log(time);
+    console.log(inputObj);
+    console.log(finalObj);
+    console.log(arr);
+    console.log(finalArray);
+
+
+    return finalArray;
+  }
+  
+  orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 
   
