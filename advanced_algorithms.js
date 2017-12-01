@@ -507,37 +507,45 @@ function makePerson () {
 //Return a new array that transforms the element's 
 //average altitude into their orbital periods.
 function orbitalPeriod(arr) {
+    //Define constants
     const finalArray = [];
-    const inputObj = arr[0];
-    const finalObj = {
-        name : "",
-        orbitalPeriod : ""
-    };
-    let GM = 398600.4418;
-    let earthRadius = 6367.4447;
-    let avgAlt = inputObj.avgAlt;
+    const GM = 398600.4418;
+    const earthRadius = 6367.4447;
     
-    let a = Math.pow(earthRadius + avgAlt, 3);
-    let divideSeg = a / GM;
-    let squareSeg = Math.sqrt(divideSeg);
-    let time = Math.round(2 * Math.PI * (squareSeg));
-
-
-    finalObj.name = inputObj.name;
-    finalObj.orbitalPeriod = time;
-
-    finalArray.push(finalObj);
-
-    console.log(time);
-    console.log(inputObj);
-    console.log(finalObj);
-    console.log(arr);
+    //Loop through each object in the input array
+    arr.forEach(function(object){
+        
+        //Create a finalObject to pass into the finalArray
+        let finalObj = {
+            name : "",
+            orbitalPeriod : ""
+        };
+        //Set the avg alt variable to hold the current object's value:
+        let avgAlt = object.avgAlt;
+        //Set a variable to equal first part of the orbital formula
+        let a = Math.pow(earthRadius + avgAlt, 3);
+        //Set variable to Divide a by the GM constant
+        let divideSeg = a / GM;
+        //Set variable to square the divide segment variable:
+        let squareSeg = Math.sqrt(divideSeg);
+        //Set time = to the remainder of the orbital formula
+        let time = Math.round(2 * Math.PI * (squareSeg));
+        //Set finalObj name to equal current objects name value:
+        finalObj.name = object.name;
+        //Set final object orbitalPeriod parameter = to time result
+        finalObj.orbitalPeriod = time;
+        //push the object to the final array
+        finalArray.push(finalObj)
+        
+    });
+    
+    //Return the result:
     console.log(finalArray);
-
-
     return finalArray;
+
   }
-  
-  orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
+  //Example Calls:
+  //orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
+  //orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]); 
 
   
