@@ -507,6 +507,7 @@ function makePerson () {
 //Return a new array that transforms the element's 
 //average altitude into their orbital periods.
 function orbitalPeriod(arr) {
+
     //Define constants
     const finalArray = [];
     const GM = 398600.4418;
@@ -543,9 +544,26 @@ function orbitalPeriod(arr) {
     console.log(finalArray);
     return finalArray;
 
-  }
+}
   //Example Calls:
   //orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
   //orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]); 
-
+  function pairwise(arr, arg) {
+    let answer = 0;
+    //Loop through arr elems:
+    for (i=0; i<arr.length; i++) {
+        arr.forEach(function (element, index){
+            if (index <= i) {
+                return;
+            }
+            else if (element + arr[i] == arg) {
+                answer = answer + index + i;
+            }
+        });
+    }
+    console.log(answer);
+    return answer;
+  }
   
+  pairwise([1,4,2,3,0,5], 7);
+  //pairwise([1, 3, 2, 4], 4);
