@@ -550,20 +550,43 @@ function orbitalPeriod(arr) {
   //orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]); 
   function pairwise(arr, arg) {
     let answer = 0;
+    let tempAnswer = [];
+    let minimum = 0;
+
+    //Function to find minimum number in an array:
+    Array.min = function(array) {
+        return Math.min.apply(Math, array);
+    }
     //Loop through arr elems:
     for (i=0; i<arr.length; i++) {
+        //Loop through array for each i increment:
         arr.forEach(function (element, index){
+            //if element index is less than i index:
             if (index <= i) {
+                //skip to the next element
                 return;
             }
+            if (element == arr[i] && element + arr[i] == arg) {
+                //store sum of indices in array:
+                tempAnswer.push(i+index);    
+            }
+            //else if sum of element and i element = function argument:
             else if (element + arr[i] == arg) {
+                //answer equals sum of element index and i indices:
+                console.log(i, index);
                 answer = answer + index + i;
             }
         });
     }
-    console.log(answer);
-    return answer;
+    if (tempAnswer.length > 0) { 
+        minimum = Array.min(tempAnswer);
+    }
+    
+    console.log(minimum + answer);
+    return answer + minimum;
   }
   
-  pairwise([1,4,2,3,0,5], 7);
+  //pairwise([1,4,2,3,0,5], 7);
   //pairwise([1, 3, 2, 4], 4);
+  //pairwise([1, 1, 1], 2)
+  pairwise([0, 0, 0, 0, 1, 1], 1)
