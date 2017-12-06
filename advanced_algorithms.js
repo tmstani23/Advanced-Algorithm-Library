@@ -548,45 +548,63 @@ function orbitalPeriod(arr) {
   //Example Calls:
   //orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
   //orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]); 
-  function pairwise(arr, arg) {
+function pairwise(arr, arg) {
     let answer = 0;
     let tempAnswer = [];
     let minimum = 0;
+    let noRepeatA = [];
+    let noRepeatB = [];
 
     //Function to find minimum number in an array:
     Array.min = function(array) {
         return Math.min.apply(Math, array);
     }
-    //Loop through arr elems:
+    //Loop through function input arr elements:
     for (i=0; i<arr.length; i++) {
-        //Loop through array for each i increment:
+        //Loop through entire function input array for each i increment:
         arr.forEach(function (element, index){
-            //if element index is less than i index:
+            //if element index is less than or equal i index:
             if (index <= i) {
                 //skip to the next element
                 return;
             }
+            //If current element value equals i element value 
+            //and current element value + i element value = function input argument:
             if (element == arr[i] && element + arr[i] == arg) {
-                //store sum of indices in array:
+                //store sum of both indices in a new array:
                 tempAnswer.push(i+index);    
             }
-            //else if sum of element and i element = function argument:
+            //else if sum of current element value
+            //and i element value = function argument:
             else if (element + arr[i] == arg) {
-                //answer equals sum of element index and i indices:
-                console.log(i, index);
-                answer = answer + index + i;
-            }
+                //if norepeatA array does not contain i value
+                //and if norepeatB does not include element index value:
+                if (noRepeatA.includes(i) == false && noRepeatB.includes(index) == false) {
+                    //push i index value into noRepeatA array:
+                    noRepeatA.push(i);
+                    //push element index value into noRepeatB array:
+                    noRepeatB.push(index);
+                };
+            };
         });
-    }
+}
+    //if there are items in the tempAnswer array:
     if (tempAnswer.length > 0) { 
+        //save lowest value into minimum variable:
         minimum = Array.min(tempAnswer);
     }
-    
+    //if noRepeatA array isn't empty:
+    if (noRepeatA.length > 0) {
+        //answer = sum of all variables in noRepeatA and B arrays:
+        answer = noRepeatA.concat(noRepeatB).reduce(function (total, current) {
+            return total + current;
+        });
+    }
     console.log(minimum + answer);
     return answer + minimum;
-  }
-  
+}
+  //Example calls:
   //pairwise([1,4,2,3,0,5], 7);
   //pairwise([1, 3, 2, 4], 4);
   //pairwise([1, 1, 1], 2)
-  pairwise([0, 0, 0, 0, 1, 1], 1)
+  //pairwise([0, 0, 0, 0, 1, 1], 1)
