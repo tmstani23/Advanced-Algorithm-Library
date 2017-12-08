@@ -11,24 +11,16 @@ A library of algorithms of advanced, to semi-advanced, difficulty(up for interpr
 
 **function updateRecords(id, prop, value):** This function which takes an album's id (like 2548), a property prop (like "artist" or "tracks"), and a value (like "Addicted to Love") to modify the data in this collection.
 
-If prop isn't "tracks" and value isn't empty (""), update or set the value for that record album's property.
-
-The function always returns the entire collection object.
+If prop isn't "tracks" and value isn't empty (""), update or set the value for that record album's property.  The function always returns the entire collection object.
 
 There are several rules for handling incomplete data:
-
-If prop is "tracks" but the album doesn't have a "tracks" property, create an empty array before adding the new value to the album's corresponding property.
-
-If prop is "tracks" and value isn't empty (""), push the value onto the end of the album's existing tracks array.
-
-If value is empty (""), delete the given prop property from the album.
+If prop is "tracks" but the album doesn't have a "tracks" property, create an empty array before adding the new value to the album's corresponding property.  If prop is "tracks" and value isn't empty (""), push the value onto the end of the album's existing tracks array.  If value is empty (""), delete the given prop property from the album.
 
 Example Call: 
 updateRecords(1245, "tracks", "Love Me Baby");
 
 Output: 
 The original collection object: 
-
 Object {1245: Object, 2468: Object, 2548: Object, 5439: Object}
 1245:Object {artist: "Robert Palmer", tracks: Array(0)}
 artist:"Robert Palmer"
@@ -37,9 +29,7 @@ tracks:Array(0) []
 2548:Object {album: "Slippery When Wet", artist: "Bon Jovi", tracks: Array(2)}
 5439:Object {album: "ABBA Gold"}
 
-
 The modified collection object (Love Me Baby Track Added to 1245 object):
-
 1245:Object {artist: "Robert Palmer", tracks: Array(1)}
 artist:"Robert Palmer"
 tracks:Array(1) ["Love Me Baby"]
@@ -50,24 +40,17 @@ tracks:Array(1) ["Love Me Baby"]
 **function makePerson:** This function creates an object constructor (person) with the following methods:
 
 getFirstName(),
-
 getLastName(),
-
 getFullName(),
-
 setFirstName(first),
-
 setLastName(last),
-
 setFullName(firstAndLast)
 
 Example Call:
 makePerson();
 
 Output:
-
 Stanislav
-
 Bob Stanislav
 
 
@@ -101,13 +84,7 @@ Output:
 6:Array(2) ["PENNY", 0.04]
 
 
-**function updateInventory(arr1, arr2):** This function Compares and updates the inventory stored in a 2D array against a second 2D array. 
-    
-It updates the current existing inventory item quantities (in arr1). 
-
-If an item cannot be found, add the new item and quantity into the inventory array. 
-
-The returned inventory array is in alphabetical order by item.
+**function updateInventory(arr1, arr2):** This function Compares and updates the inventory stored in a 2D array against a second 2D array.  It updates the current existing inventory item quantities (in arr1). If an item cannot be found, add the new item and quantity into the inventory array. The returned inventory array is in alphabetical order by item.
 
 Example Call: 
 updateInventory(curInv, newInv);
@@ -151,9 +128,7 @@ telephoneCheck("(555)555-5555");
 
 Output: true
 
-**function permAlone(str):** This function  returns the number (int) of total permutations of the provided string that don't have repeated consecutive letters. 
-    
-It Assumes that all characters in the provided string are each unique.
+**function permAlone(str):** This function returns the number (int) of total permutations of the provided string that don't have repeated consecutive letters. It Assumes that all characters in the provided string are each unique.
     
 For example: aab should return 2
 because it has 6 total permutations (aab, aab,aba, aba, baa, baa), but only 2 of them (aba and aba) don't have the same letter (in this case a) repeating.
