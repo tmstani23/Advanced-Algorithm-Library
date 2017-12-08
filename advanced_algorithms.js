@@ -35,7 +35,7 @@ function telephoneCheck(str) {
     }
     //Return true if the input string matches one of the regex patterns in the dictionary:
     else if(valDict[key].test(str)) {
-        console.log(valDict[key] +` is true`);
+        console.log(`true`);
         return true;
     }
     }
@@ -48,8 +48,7 @@ function telephoneCheck(str) {
 //telephoneCheck("(555)555-5555");
   
 
-
-// Setup - All part of the validateRecords function below:
+// Setup - All part of the updateRecords function below:
 let collection = {
     "2548": {
     "album": "Slippery When Wet",
@@ -78,7 +77,7 @@ let collection = {
 // Keep a copy of the collection for tests
 const collectionCopy = JSON.parse(JSON.stringify(collection));
 
-// Only change code below this line
+
 function updateRecords(id, prop, value) {
  
   //Update the tracks property if it exists.
@@ -99,7 +98,7 @@ function updateRecords(id, prop, value) {
         else 
         //Add the tracks to the end:
         {
-            console.log("updating track value")
+            //console.log("updating track value")
             collection[id][prop].push(value);
         }
     }
@@ -132,15 +131,14 @@ function symmetricDiff(args) {
     }
     //Create function that calculates the symmetric difference between two arrays:
     function symDiff(arrayOne, arrayTwo) {
+        //This function takes two or more arrays 
+        //and returns an array of the symmetric difference of the provided arrays.
         var result = [];
-        console.log(`array one: ` + arrayOne);
-        console.log(`array two: ` + arrayTwo);
         //run for each function on array one that checks each element in the array:
         arrayOne.forEach((item) => {
             //if arrayTwo does not contain the arrayOne element and the result array does not either:
             if (arrayTwo.indexOf(item) < 0 && result.indexOf(item) < 0) {
                 //push the arrayOne element to the result array:
-                console.log(`adding from arrayOne ` + item);
                 result.push(item);
             }
         });
@@ -149,7 +147,6 @@ function symmetricDiff(args) {
             //if arrayOne does not contain the arrayTwo element and the result array does not either:
             if (arrayOne.indexOf(item) < 0 && result.indexOf(item) < 0) {
                 //push the arrayTwo element to the result array:
-                console.log(`adding from arrTwo ` + item);
                 result.push(item);
             }
         });
@@ -292,7 +289,7 @@ function checkCashRegister(price, cash, cid) {
   // ["ONE HUNDRED", 100.00]]
   
 //Example Call:
-//checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]) 
+//checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]); 
 
 
 function updateInventory(arr1, arr2) {
@@ -358,7 +355,8 @@ function updateInventory(arr1, arr2) {
     console.log(finalArr);
     return finalArr;
 }
-// Example inventory lists
+// Example inventory lists. 
+// Both are part of the update inventory function.
 var curInv = [
     [21, "Bowling Ball"],
     [1, "Hair Pin"],
@@ -374,7 +372,6 @@ var newInv = [
 ];
 //Example Call:
 //updateInventory(curInv, newInv);
-
 
 function permAlone(str) {
     // Return the int of total permutations of the provided string 
@@ -494,8 +491,8 @@ function makePerson () {
     //create class object bob and assign it the name Bob Ross:
     var bob = new Person('Bob Ross');
     //Example method calls:
-    console.log(bob.setFirstName("Tim"));
-    //console.log(bob.setLastName("Stanislav"));
+    //console.log(bob.setFirstName("Tim"));
+    console.log(bob.setLastName("Stanislav"));
     //console.log(bob.setFullName("Curry Haskell"));
     console.log(bob.getFullName());
     //console.log(bob.getFirstName());
@@ -587,7 +584,8 @@ function pairwise(arr, arg) {
                 };
             };
         });
-}
+    };
+
     //if there are items in the tempAnswer array:
     if (tempAnswer.length > 0) { 
         //save lowest value into minimum variable:
@@ -599,12 +597,12 @@ function pairwise(arr, arg) {
         answer = noRepeatA.concat(noRepeatB).reduce(function (total, current) {
             return total + current;
         });
-    }
+    };
     console.log(minimum + answer);
     return answer + minimum;
 }
-  //Example calls:
-  //pairwise([1,4,2,3,0,5], 7);
-  //pairwise([1, 3, 2, 4], 4);
-  //pairwise([1, 1, 1], 2)
-  //pairwise([0, 0, 0, 0, 1, 1], 1)
+//Example calls:
+//pairwise([1,4,2,3,0,5], 7);
+//pairwise([1, 3, 2, 4], 4);
+//pairwise([1, 1, 1], 2);
+//pairwise([0, 0, 0, 0, 1, 1], 1);
