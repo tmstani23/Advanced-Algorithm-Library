@@ -21,20 +21,32 @@ updateRecords(1245, "tracks", "Love Me Baby");
 
 Output: 
 The original collection object: 
+
 Object {1245: Object, 2468: Object, 2548: Object, 5439: Object}
+
 1245:Object {artist: "Robert Palmer", tracks: Array(0)}
 artist:"Robert Palmer"
+
 tracks:Array(0) []
+
 2468:Object {album: "1999", artist: "Prince", tracks: Array(2)}
+
 2548:Object {album: "Slippery When Wet", artist: "Bon Jovi", tracks: Array(2)}
+
 5439:Object {album: "ABBA Gold"}
 
 The modified collection object (Love Me Baby Track Added to 1245 object):
+
 1245:Object {artist: "Robert Palmer", tracks: Array(1)}
+
 artist:"Robert Palmer"
+
 tracks:Array(1) ["Love Me Baby"]
+
 2468:Object {album: "1999", artist: "Prince", tracks: Array(2)}
+
 2548:Object {album: "Slippery When Wet", artist: "Bon Jovi", tracks: Array(2)}
+
 5439:Object {album: "ABBA Gold"}
 
 **function makePerson:** This function creates an object constructor (person) with the following methods:
@@ -91,10 +103,15 @@ updateInventory(curInv, newInv);
 
 Output:
 0: Array(2) [88, "Bowling Ball"]
+
 1: Array(2) [2, "Dirty Sock"]
+
 2: Array(2) [3, "Hair Pin"]
+
 3: Array(2) [3, "Half-Eaten Apple"]
+
 4: Array(2) [5, "Microphone"]
+
 5: Array(2) [7, "Toothpaste"]
 
 **function orbitalPeriod(arr):** This function returns a new array that transforms the input arr average altitude value into their orbital periods.
@@ -104,8 +121,11 @@ orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7},{na
 
 Output:
 Array(3) [Object, Object, Object]
+
 0: Object {name: "iss", orbitalPeriod: 5557}
+
 1: Object {name: "hubble", orbitalPeriod: 5734}
+
 2: Object {name: "moon", orbitalPeriod: 2377399}
 
 **function pairwise(arr, arg):** This function when given an array arr, finds element pairs whose sum equal the second argument arg and returns the sum of their indices.
